@@ -3,7 +3,6 @@ import { useCart } from '../hooks/useCart'
 import { PlusSquare, ShoppingCart } from '@phosphor-icons/react'
 
 function ProductItem ({ title, price, images, isInCart, addToCart }) {
-  console.log(images?.[0])
   return (
     <article className='bg-white group w-full flex flex-col gap-1 shadow-md rounded-sm overflow-hidden'>
       <picture className='w-full h-[170px] overflow-hidden group-hover:brightness-75 transition-all duration-700 ease-in'>

@@ -9,7 +9,7 @@ export function useProducts ({ filters }) {
   useEffect(() => {
     const productsAPI = async () => {
         try {
-            const response = await fetch('https://dummyjson.com/products?limit=80&skip=0');
+            const response = await fetch('https://dummyjson.com/products?limit=50&skip=0');
             const data = await response.json();
             setProducts(data?.products);
         } catch (error) {
@@ -27,5 +27,5 @@ export function useProducts ({ filters }) {
     product.price >= filters.minPrice)
   ).filter(item => item.category !== "groceries")
 
-  return { productsFilter }
+  return { products: productsFilter }
 }

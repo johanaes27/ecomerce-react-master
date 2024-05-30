@@ -1,18 +1,24 @@
 import { X } from '@phosphor-icons/react'
 import { useFilters } from '../hooks/useFilters'
-import { products } from './../mocks/productos.json'
+import { useProducts } from '../hooks/useProducts'
 
 const CATEGORIES_PRODUCTS = [
   { id: crypto.randomUUID(), srcName: 'beauty', name: 'Beauty' },
   { id: crypto.randomUUID(), srcName: 'fragrances', name: 'Fragances' },
   { id: crypto.randomUUID(), srcName: 'furniture', name: 'Furnitures' },
-  { id: crypto.randomUUID(), srcName: 'groceries', name: 'Groceries' },
-  { id: crypto.randomUUID(), srcName: 'groceries', name: 'Groceries' }
-
+  { id: crypto.randomUUID(), srcName: 'home-decoration', name: 'Home decoration' },
+  { id: crypto.randomUUID(), srcName: 'kitchen-accessories', name: 'Kitchen accessories' },
+  { id: crypto.randomUUID(), srcName: 'laptops', name: 'Laptops' },
+  { id: crypto.randomUUID(), srcName: 'mens-shirts', name: 'Men Shirts' },
+  { id: crypto.randomUUID(), srcName: 'mens-shoes', name: 'Men Shoes' },
+  { id: crypto.randomUUID(), srcName: 'mens-watches', name: 'Men watches' }, 
+  { id: crypto.randomUUID(), srcName: 'mobile-accessories', name: 'Mobile accessories' }
 ]
 
 export default function Filter () {
-  const { filters, changeMinPrice, addCategory } = useFilters()
+  const { filters, changeMinPrice, addCategory } = useFilters();
+  const { products } = useProducts({filters});
+
 
   const price = { min: 0, max: 3000 }
 
