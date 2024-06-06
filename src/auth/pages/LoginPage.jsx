@@ -1,6 +1,10 @@
 
 import { Link as RouterLink } from 'react-router-dom';
 import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material"
+import { AuthLayout } from '../layout/AuthLayout';
+import { useForm } from '../../hooks/useForm';
+import { useContext } from 'react';
+import { AuthContext } from '../context';
 
 
 const formData = {
@@ -10,35 +14,32 @@ const formData = {
 
 export const LoginPage = () => {
 
-  // const { status, errorMessage } = useSelector( state => state.auth ); 
-
-  // const dispatch  = useDispatch();
-  
-  // const { email, password, onInputChange } = useForm(formData);
-
-  // const isAuthenticating = useMemo(() => status === 'checking', [status]);
-
-  // const onSubmit = ( event ) => {
-  //   event.preventDefault();
-
-  //   //! No es esta la accion a despachar //hacef dispatch del thunk
-  //       dispatch( startLoginWithEmailPassword({email, password}) );
-  // }
  
-  // const onGoogleSignIn = () => {
-  //   dispatch( startGoogleSignIn() );
+  const { email, password, onInputChange } = useForm(formData);
 
-  // } 
+  const onGoogleSignIn = async (event) => {
+    event.preventDefault();
+     startGoogleSignIn() ;
+  } 
 
+
+  const { startGoogleSignIn, startLoginWithEmailPassword } = useContext( AuthContext );
+
+  const onSubmit = (event) => {
+
+    event.preventDefault();
+    
+    startLoginWithEmailPassword({email, password});
+    
+  }
  
 
   return (
-
-    // <AuthLayout title='Login'>
-    <div>
+     <div style={{ background: 'linear-gradient(to bottom, #fc466b, #3f5efb)', height: '100vh' }}>
+    <AuthLayout title='login'>
       
-       {/* <form onSubmit={ onSubmit } className='animate__animated animate__fadeIn animate__faster'> */}
-       <form className='animate__animated animate__fadeIn animate__faster'>
+       <form onSubmit={ onSubmit } className='animate__animated animate__fadeIn animate__faster'>
+       {/* <form className='animate__animated animate__fadeIn animate__faster'> */}
 
           <Grid container>
           <Grid item xs={ 12 } sx ={{ mt: 2 }}>
@@ -48,8 +49,13 @@ export const LoginPage = () => {
             placeholder="correo@google.com"
             fullWidth
             name="email"
-            // value={ email }
-            // onChange={ onInputChange }
+            value={ email }
+            onChange={ onInputChange }
+            InputProps={{
+            style: { color: 'black', borderColor: 'white', borderWidth: 1, borderStyle: 'solid', background:'white', height: '40px' },
+
+          }}
+          variant="outlined"
             />       
             </Grid> 
 
@@ -60,8 +66,13 @@ export const LoginPage = () => {
             placeholder="contraseña"
             fullWidth
             name="password"
-            // value={ password }
-            // onChange={ onInputChange }
+            value={ password }
+            onChange={ onInputChange }
+            InputProps={{
+              style: { color: 'black', borderColor: 'white', borderWidth: 1, borderStyle: 'solid', background:'white', height: '40px' },
+  
+            }}
+            variant="outlined"
             />       
             </Grid > 
             
@@ -83,7 +94,10 @@ export const LoginPage = () => {
                   // disabled = { isAuthenticating }
                   sx={{backgroundColor: '#9c5252', '&:hover': {
                     backgroundColor: '#6c1919',
-                  }}}
+                  },
+                  width: '120px',
+                  height: '30px'                
+                  }}
                   type='submit' 
                   variant='contained' 
                   fullWidth 
@@ -95,11 +109,15 @@ export const LoginPage = () => {
                   <Button 
                   sx={{backgroundColor: '#9c5252', '&:hover': {
                     backgroundColor: '#6c1919',
-                  }}}
+                  },
+                  width: '120px',
+                  height: '30px'
+                
+                  }}
                   // disabled = { isAuthenticating }
                   variant='contained' 
                   fullWidth
-                  // onClick={ onGoogleSignIn }                                    
+                  onClick={ onGoogleSignIn }                                    
                   >
                     {/* <Google /> */}
                     <Typography sx={{ ml: 1}}>Google</Typography>
@@ -108,7 +126,7 @@ export const LoginPage = () => {
 
                 <Grid container direction='row' justifyContent='end'>
 
-                  <Link sx={{ mt: 2 }} component={ RouterLink } color='#9c5252' to="/auth/register">
+                  <Link sx={{ mt: 2 }} component={ RouterLink } color='#fbfbfb' to="/auth/register">
                   Crear una cuenta
                   </Link>
 
@@ -120,10 +138,10 @@ export const LoginPage = () => {
           </Grid>
         </form>
 
-        </div>              
-    // </AuthLayout>
-
-        
+              
+     </AuthLayout>
+     </div>
+             
       
   )
 }

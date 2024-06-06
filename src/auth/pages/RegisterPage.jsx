@@ -1,5 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { Alert, Button, Grid, Link, TextField, ThemeProvider, Typography } from "@mui/material"
+import { AuthLayout } from '../layout/AuthLayout';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../context';
+import { useForm } from '../../hooks/useForm';
 
 
 const formData = {
@@ -16,75 +20,89 @@ const formValidations = {
 
 export const RegisterPage = () => {
 
-  // const dispatch = useDispatch();
-
-  // const [formSubmitted, setFormSubmitted] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false)
 
   // const { status, errorMessage } = useSelector( state => state.auth  );
   // const isCheckingAuthentication = useMemo( () => status === 'checking', [status]);
 
-  // const { 
-  //   formState, displayName, email, password, onInputChange,
-  //   isFormValid, displayNameValid, emailValid, passwordValid,   
-  // } = useForm(formData, formValidations);
+  const { 
+    formState, displayName, email, password, onInputChange,
+    isFormValid, displayNameValid, emailValid, passwordValid,   
+  } = useForm(formData, formValidations);
 
-  // const onSubmit = ( event ) => {
-  //   event.preventDefault();
-  //   setFormSubmitted(true)
+  const {  starCreatingUserWithEmailPassword } = useContext( AuthContext );
 
-  //   if ( !isFormValid ) return;
+  const onSubmit = ( event ) => {
+    event.preventDefault();
+    setFormSubmitted(true)
 
-  //   dispatch(starCreatingUserWithEmailPassword(formState));
-  // }
+    if ( !isFormValid ) return;
+
+    starCreatingUserWithEmailPassword(formState);
+  }
 
   return (
-    // <AuthLayout title='Crear cuenta'>
-    <div>
+
+    <div style={{ background: 'linear-gradient(to bottom, #fc466b, #3f5efb)', height: '100vh'}}>
+    <AuthLayout title='Crear cuenta'> 
+    
      
-       {/* <form onSubmit={ onSubmit } className='animate__animated animate__fadeIn animate__faster'>  */}
-       <form className='animate__animated animate__fadeIn animate__faster'> 
+       <form onSubmit={ onSubmit } className='animate__animated animate__fadeIn animate__faster'> 
+       {/* <form className='animate__animated animate__fadeIn animate__faster'>  */}
           <Grid container>
 
             <Grid item xs={ 12 } sx ={{ mt: 2 }}>
-              <TextField 
-              label="Nombre completo" 
+              <TextField               
               type="name"
               placeholder="Nombre completo"
               fullWidth
               name='displayName'
-              // value={displayName}
-              // onChange={ onInputChange }
-              // error={ !!displayNameValid && formSubmitted }
-              // helperText={ displayNameValid }
+              value={displayName}
+              onChange={ onInputChange }
+              error={ !!displayNameValid && formSubmitted }
+              helperText={ displayNameValid }
+              InputProps={{
+                style: { color: 'black', borderColor: 'white', borderWidth: 1, borderStyle: 'solid', background:'white', height: '40px' },
+    
+              }}
+              variant="outlined"
 
               />       
               </Grid> 
 
             <Grid item xs={ 12 } sx ={{ mt: 2 }}>
               <TextField 
-              label="Correo" 
               type="email"
               placeholder="correo"
               fullWidth
               name='email'
-              // value={email}
-              // onChange={ onInputChange }
-              // error={ !!emailValid && formSubmitted }
-              // helperText={ emailValid }
+              value={email}
+              onChange={ onInputChange }
+              error={ !!emailValid && formSubmitted }
+              helperText={ emailValid }
+              InputProps={{
+                style: { color: 'black', borderColor: 'white', borderWidth: 1, borderStyle: 'solid', background:'white', height: '40px' },
+    
+              }}
+              variant="outlined"
               />       
               </Grid> 
 
               <Grid item xs={ 12 } sx ={{ mt: 2 }}>
               <TextField 
-              label="Contraseña" 
               type="password"
               placeholder="contraseña"
               fullWidth
               name='password'
-              // value={password}
-              // onChange={ onInputChange }
-              // error={ !!passwordValid && formSubmitted}
-              // helperText={ passwordValid }
+              value={password}
+              onChange={ onInputChange }
+              error={ !!passwordValid && formSubmitted}
+              helperText={ passwordValid }
+              InputProps={{
+                style: { color: 'black', borderColor: 'white', borderWidth: 1, borderStyle: 'solid', background:'white', height: '40px' },
+    
+              }}
+              variant="outlined"
               />       
               </Grid > 
               
@@ -113,8 +131,8 @@ export const RegisterPage = () => {
                   
                 <Grid container direction='row' justifyContent='end'>
 
-                    <Typography sx={{ mr: 1, mt: 1.5  }}>¿Ya tienes cuenta?</Typography>
-                    <Link sx={{ mt: 2 }} component={ RouterLink }  color='#9c5252' to="/auth/login">
+                    <Typography sx={{ mr: 1, mt: 1.5  }} color='#fbfbfb'>¿Ya tienes cuenta?</Typography>
+                    <Link sx={{ mt: 2 }} component={ RouterLink }  color='#fbfbfb' to="/auth/login">
                     ingresar
                     </Link>
 
@@ -126,6 +144,8 @@ export const RegisterPage = () => {
           </Grid>
         </form>
 
+       
+        </AuthLayout>
         </div>
 
   

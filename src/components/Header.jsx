@@ -1,10 +1,31 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import logo from './../assets/img/logoGlamorHome.png'
 import { List, ShoppingCart } from '@phosphor-icons/react'
 import { Cart } from './Cart'
 import { useCart } from '../hooks/useCart'
+import { AuthContext } from '../auth'
+import { useNavigate } from 'react-router-dom'
+import { IconButton } from '@mui/material'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+// import { LogoutOutlined } from '@mui/icons-material'
 
 function Header () {
+
+  const { user, logout } = useContext( AuthContext );
+  
+  const getFirstName = (name) => {
+      return name.split(' ')[0]
+  }
+
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    logout();
+    navigate('/auth/login', {
+        replace: true
+    });
+}
+
   const [showCart, setShowCart] = useState(false)
   const { cart } = useCart()
 
@@ -44,6 +65,7 @@ function Header () {
           </ul>
         </nav>
         <div className='right-side flex gap-5 ml-auto'>
+              
           <div className='relative grid place-items-center'>
             <button onClick={handleToggleCart} className='relative text-c_dark-smoth hover:text-c_dark-strong font-medium'>
               <ShoppingCart size={25} />
@@ -55,8 +77,17 @@ function Header () {
             <Cart isShow={showCart} />
           </div>
           <div className='userBox w-11 h-11 rounded-full overflow-hidden border-c_orange-normal border-2'>
-            <img className='w-full h-full object-cover' src='https://johanaportfolio.netlify.app/static/media/profile.8082cc703b3ed5384b75.png' alt='avatar' />
+            <img className='w-full h-full object-cover' src={user.photoURL || 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg' } alt='avatar' />
           </div>
+          <span style={{marginTop: '10px'}} className="nav-item nav-link text-primary">
+                  { getFirstName(user?.name) }
+              </span>
+              <IconButton
+                  className="nav-item nav-link btn"
+                  onClick={ onLogout }
+              >
+                  <ExitToAppIcon />
+              </IconButton>
         </div>
       </div>
     </header>

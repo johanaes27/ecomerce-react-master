@@ -6,7 +6,7 @@ export const EcomerceRoutes = () => {
   return (
     <>
         <Routes>
-            <Route path="ecomerce" element={<EcomerceApp />} />
+            <Route path="/ecomerce" element={<EcomerceApp />} />
             <Route path="/*" element={<Navigate to="/ecomerce" />} />
         </Routes>
     

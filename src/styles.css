@@ -1,0 +1,4 @@
+.background-login {
+    background: linear-gradient(to bottom, #fc466b, #3f5efb);
+    height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+}
