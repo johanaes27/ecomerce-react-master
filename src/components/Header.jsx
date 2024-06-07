@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import logo from './../assets/img/logoGlamorHome.png'
+import logo from './../assets/img/logoEcomerce.png'
 import { List, ShoppingCart } from '@phosphor-icons/react'
 import { Cart } from './Cart'
 import { useCart } from '../hooks/useCart'
@@ -85,6 +85,8 @@ function Header () {
               <IconButton
                   className="nav-item nav-link btn"
                   onClick={ onLogout }
+                  title="Exit"
+                  
               >
                   <ExitToAppIcon />
               </IconButton>
